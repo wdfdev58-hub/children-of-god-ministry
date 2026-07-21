@@ -1,110 +1,121 @@
-/* Revival Fire Ministry — custom styles atop Tailwind.
-   Concept: sacred fire in the Kalahari night. */
+/* Children Of God Ministry — custom styles atop Tailwind.
+   Concept: their own real brand — cream & parchment, deep burgundy, warm gold,
+   Cinzel + EB Garamond. Colours lifted directly from their Lovable site. */
 
 :root {
-  --ink: #12100A;
-  --ember: #E0A428;
-  --blaze: #A9781A;
-  --gold: #F2D06B;
-  --bone: #F6F0E2;
+  --parchment: #faf5ec;
+  --linen: #efe7d9;
+  --card: #fefcf6;
+  --hairline: #dacfbf;
+  --brown: #2e1915;
+  --mutedbrown: #72564d;
+  --maroon: #831a1b;
+  --maroon-deep: #400406;
+  --gold: #d4aa5a;
+  --gold-strong: #c18e35;
 }
 
 html { scroll-behavior: smooth; }
 body { overflow-x: hidden; }
 
+/* ---- hero gradient (matches their real burgundy radial gradient) ---- */
+.hero-gradient {
+  background: radial-gradient(120% 120% at 50% -10%, rgba(105,18,19,0.55) 0%, rgba(79,10,11,0.72) 45%, rgba(64,4,6,0.92) 100%);
+}
+
 /* ---- atmospheric glow behind heroes ---- */
 .hero-glow {
   background:
-    radial-gradient(60% 55% at 50% 108%, rgba(224,164,40,0.30), transparent 60%),
-    radial-gradient(40% 40% at 80% 100%, rgba(242,208,107,0.18), transparent 60%),
-    radial-gradient(45% 45% at 15% 95%, rgba(169,120,26,0.20), transparent 65%);
+    radial-gradient(60% 55% at 50% 108%, rgba(212,170,90,0.22), transparent 60%),
+    radial-gradient(40% 40% at 80% 100%, rgba(193,142,53,0.14), transparent 60%),
+    radial-gradient(45% 45% at 15% 95%, rgba(212,170,90,0.16), transparent 65%);
 }
 
 /* ---- nav ---- */
-#nav.scrolled {
-  background: rgba(18,16,10,0.72);
-  backdrop-filter: blur(14px);
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+.navlink {
+  position: relative; padding: 0.5rem 0.75rem; border-radius: 0.375rem;
+  font-size: 0.875rem; font-weight: 500; color: rgba(46,25,21,0.75); transition: color .3s, background .3s;
 }
-.navlink { position: relative; transition: color .3s; }
-.navlink:hover { color: var(--bone); }
-.navlink::after {
-  content: ''; position: absolute; left: 0; bottom: -6px; height: 1px; width: 0;
-  background: linear-gradient(90deg, var(--gold), var(--ember)); transition: width .35s ease;
-}
-.navlink:hover::after { width: 100%; }
-
-.ember-dot { box-shadow: 0 0 14px 2px rgba(224,164,40,0.8); animation: pulse 2.4s ease-in-out infinite; }
-@keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: .55; transform: scale(1.35); } }
+.navlink:hover { color: var(--maroon); background: rgba(218,207,191,0.35); }
 
 /* ---- buttons ---- */
 .cta, .cta-sm {
   display: inline-flex; align-items: center; gap: .5rem;
-  background: linear-gradient(120deg, var(--ember), var(--blaze));
-  color: #1a0d06; font-weight: 700; letter-spacing: .01em;
+  background: linear-gradient(120deg, var(--gold), var(--gold-strong));
+  color: var(--maroon-deep); font-weight: 700; letter-spacing: .01em;
   border-radius: 999px; transition: transform .3s, box-shadow .3s, filter .3s;
-  box-shadow: 0 10px 30px -10px rgba(224,164,40,0.6);
+  box-shadow: 0 10px 30px -10px rgba(193,142,53,0.55);
 }
 .cta { padding: .95rem 1.9rem; font-size: 1rem; }
-.cta-sm { padding: .6rem 1.2rem; font-size: .82rem; }
-.cta:hover, .cta-sm:hover { transform: translateY(-2px); filter: brightness(1.06); box-shadow: 0 18px 40px -12px rgba(224,164,40,0.75); }
+.cta-sm { padding: .55rem 1.15rem; font-size: .8rem; }
+.cta:hover, .cta-sm:hover { transform: translateY(-2px); filter: brightness(1.05); box-shadow: 0 18px 40px -12px rgba(193,142,53,0.7); }
 
 .cta-ghost {
   display: inline-flex; align-items: center; gap: .5rem;
-  padding: .95rem 1.7rem; border-radius: 999px; font-weight: 600; color: var(--bone);
-  border: 1px solid rgba(246,240,226,0.22); transition: border-color .3s, background .3s, transform .3s;
+  padding: .95rem 1.7rem; border-radius: 999px; font-weight: 600; color: var(--parchment);
+  border: 1px solid rgba(250,245,236,0.28); transition: border-color .3s, background .3s, transform .3s;
 }
-.cta-ghost:hover { border-color: rgba(242,208,107,0.7); background: rgba(242,208,107,0.06); transform: translateY(-2px); }
+.cta-ghost:hover { border-color: rgba(212,170,90,0.75); background: rgba(212,170,90,0.08); transform: translateY(-2px); }
 
 /* ---- shared bits ---- */
 .eyebrow {
-  display: inline-flex; align-items: center; gap: .6rem;
+  display: inline-flex; align-items: center; gap: .5rem;
   font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .3em;
-  color: rgba(242,208,107,0.9);
+  color: var(--gold-strong);
 }
-.eyebrow::before { content: '🔥'; font-size: .8rem; filter: grayscale(0.1); }
+.eyebrow-light {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .3em;
+  color: rgba(212,170,90,0.9);
+}
+.ornament { color: var(--gold-strong); font-size: 1rem; }
 
-.statlabel { margin-top: .35rem; font-size: .8rem; color: rgba(246,240,226,0.55); line-height: 1.3; }
+.statlabel { margin-top: .35rem; font-size: .8rem; color: rgba(46,25,21,0.55); line-height: 1.3; }
 
-/* ---- expect cards ---- */
+/* ---- expect / pillar cards ---- */
 .card {
   position: relative; padding: 2.25rem 1.9rem 2rem; border-radius: 1rem;
-  background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.01));
-  border: 1px solid rgba(255,255,255,0.08); overflow: hidden;
-  transition: transform .45s cubic-bezier(.2,.7,.2,1), border-color .45s, background .45s;
+  background: var(--card);
+  border: 1px solid var(--hairline); overflow: hidden;
+  transition: transform .45s cubic-bezier(.2,.7,.2,1), border-color .45s, box-shadow .45s;
 }
 .card::before {
   content: ''; position: absolute; inset: 0; opacity: 0; transition: opacity .45s;
-  background: radial-gradient(80% 80% at 50% 120%, rgba(224,164,40,0.22), transparent 60%);
+  background: radial-gradient(80% 80% at 50% 120%, rgba(212,170,90,0.16), transparent 60%);
 }
-.card:hover { transform: translateY(-8px); border-color: rgba(242,208,107,0.35); }
+.card:hover { transform: translateY(-8px); border-color: rgba(193,142,53,0.45); box-shadow: 0 20px 40px -20px rgba(64,4,6,0.25); }
 .card:hover::before { opacity: 1; }
-.card-num { font-family: 'Anton', sans-serif; font-size: 2.4rem; color: rgba(242,208,107,0.28); letter-spacing: .05em; }
-.card:hover .card-num { color: rgba(242,208,107,0.6); transition: color .45s; }
-.card-title { margin-top: .6rem; font-size: 1.4rem; font-weight: 700; color: var(--bone); }
-.card-body { margin-top: .75rem; color: rgba(246,240,226,0.68); line-height: 1.6; }
+.card-num { font-family: 'Cinzel', serif; font-size: 2rem; color: rgba(193,142,53,0.35); letter-spacing: .05em; }
+.card:hover .card-num { color: rgba(193,142,53,0.65); transition: color .45s; }
+.card-title { margin-top: .6rem; font-family: 'Cinzel', serif; font-size: 1.25rem; font-weight: 600; color: var(--maroon); }
+.card-body { margin-top: .75rem; color: rgba(46,25,21,0.72); line-height: 1.6; }
+
+/* ---- vision / mission scripture cards ---- */
+.card-scripture {
+  border-radius: 1rem; background: var(--card); border: 1px solid var(--hairline);
+  box-shadow: 0 1px 2px rgba(64,4,6,0.04);
+}
 
 /* ---- service list ---- */
 .svc { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.5rem .25rem; transition: padding-left .35s, background .35s; }
-.svc:hover { padding-left: 1rem; background: linear-gradient(90deg, rgba(224,164,40,0.06), transparent); }
-.svc-name { font-size: 1.35rem; font-weight: 700; color: var(--bone); }
-.svc-sub { margin-top: .2rem; font-size: .85rem; color: rgba(246,240,226,0.5); }
-.svc-time { font-family: 'Anton', sans-serif; font-size: 2rem; letter-spacing: .04em;
-  background: linear-gradient(120deg, var(--gold), var(--ember)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.svc:hover { padding-left: 1rem; background: linear-gradient(90deg, rgba(212,170,90,0.08), transparent); }
+.svc-name { font-family: 'Cinzel', serif; font-size: 1.2rem; font-weight: 600; color: var(--maroon); }
+.svc-sub { margin-top: .2rem; font-size: .85rem; color: var(--mutedbrown); }
+.svc-time { font-family: 'Cinzel', serif; font-size: 1.75rem; letter-spacing: .04em; color: var(--gold-strong); }
 
-/* ---- ministries grid ---- */
-.min { padding: 2.5rem 1.75rem; background: var(--ink); transition: background .4s, transform .4s; }
-.min::selection { background: var(--ember); }
-.min:hover { background: linear-gradient(180deg, rgba(224,164,40,0.12), rgba(18,16,10,1)); }
-.min-title { font-size: 1.15rem; font-weight: 700; color: var(--bone); }
-.min:hover .min-title { color: var(--gold); transition: color .4s; }
-.min-body { margin-top: .6rem; font-size: .92rem; color: rgba(246,240,226,0.6); line-height: 1.55; }
+/* ---- beliefs grid ---- */
+.min { padding: 2.5rem 1.75rem; background: var(--card); transition: background .4s, transform .4s; }
+.min:hover { background: linear-gradient(180deg, rgba(212,170,90,0.10), var(--card)); }
+.min-title { font-family: 'Cinzel', serif; font-size: 1.1rem; font-weight: 600; color: var(--maroon); }
+.min:hover .min-title { color: var(--gold-strong); transition: color .4s; }
+.min-body { margin-top: .6rem; font-size: .92rem; color: rgba(46,25,21,0.68); line-height: 1.55; }
+.min-ref { margin-top: .9rem; font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .2em; color: var(--gold-strong); }
 
 .footlink { transition: color .3s; }
 .footlink:hover { color: var(--gold); }
 
 /* ---- intro spark ---- */
-.intro-spark { box-shadow: 0 0 0 0 rgba(224,164,40,0.9); }
+.intro-spark { box-shadow: 0 0 0 0 rgba(212,170,90,0.9); }
 
 /* ---- scroll cue ---- */
 .scroll-cue { animation: floaty 2.6s ease-in-out infinite; }
@@ -117,6 +128,6 @@ body { overflow-x: hidden; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .reveal, .hero-title .line { opacity: 1 !important; transform: none !important; }
-  .ember-dot, .scroll-cue, .intro-spark { animation: none !important; }
+  .scroll-cue, .intro-spark { animation: none !important; }
   #intro { display: none; }
 }

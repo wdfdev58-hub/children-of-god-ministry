@@ -1,20 +1,20 @@
-/* Revival Fire Ministry — motion & the living ember field.
-   Signature element: canvas embers rising through the Kalahari night,
-   with a GSAP-orchestrated hero and scroll-triggered reveals. */
+/* Children Of God Ministry — motion & the drifting light field.
+   Signature element: soft gold motes rising like light through a window,
+   with a GSAP-orchestrated hero and a pinned "Our Foundation" scripture moment. */
 
 (() => {
   'use strict';
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  /* ---------------------------------------------------------------- Embers */
-  class EmberField {
+  /* ---------------------------------------------------------------- Light field */
+  class LightField {
     constructor(canvas, { density = 1, reactive = false } = {}) {
       this.c = canvas;
       this.ctx = canvas.getContext('2d');
       this.density = density;
       this.reactive = reactive;
-      this.embers = [];
+      this.motes = [];
       this.mouse = { x: 0.5, y: 0.5, active: false };
       this.resize();
       window.addEventListener('resize', () => this.resize());
@@ -33,20 +33,20 @@
       this.c.width = w * dpr; this.c.height = h * dpr;
       this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       this.w = w; this.h = h;
-      const target = Math.round((w * h) / 26000 * this.density);
-      this.count = Math.max(18, Math.min(target, 150));
-      this.embers = Array.from({ length: this.count }, () => this.spawn(true));
+      const target = Math.round((w * h) / 34000 * this.density);
+      this.count = Math.max(14, Math.min(target, 90));
+      this.motes = Array.from({ length: this.count }, () => this.spawn(true));
     }
     spawn(initial = false) {
-      const palette = ['#E0A428', '#F2D06B', '#A9781A', '#FCE3A0'];
+      const palette = ['#d4aa5a', '#c18e35', '#f2e0b8'];
       return {
         x: Math.random() * this.w,
         y: initial ? Math.random() * this.h : this.h + 10,
-        r: Math.random() * 2 + 0.6,
-        vy: -(Math.random() * 0.5 + 0.18),
-        vx: (Math.random() - 0.5) * 0.3,
+        r: Math.random() * 1.8 + 0.5,
+        vy: -(Math.random() * 0.28 + 0.08),
+        vx: (Math.random() - 0.5) * 0.18,
         life: 0,
-        max: Math.random() * 320 + 180,
+        max: Math.random() * 420 + 260,
         color: palette[(Math.random() * palette.length) | 0],
         flick: Math.random() * Math.PI * 2,
       };
@@ -55,28 +55,27 @@
       const { ctx, w, h } = this;
       ctx.clearRect(0, 0, w, h);
       ctx.globalCompositeOperation = 'lighter';
-      for (let i = 0; i < this.embers.length; i++) {
-        const e = this.embers[i];
+      for (let i = 0; i < this.motes.length; i++) {
+        const e = this.motes[i];
         e.life++;
-        e.flick += 0.08;
-        let drift = e.vx + Math.sin(e.life * 0.02) * 0.15;
+        e.flick += 0.05;
+        let drift = e.vx + Math.sin(e.life * 0.015) * 0.1;
         if (this.reactive && this.mouse.active) {
-          drift += (this.mouse.x - e.x / w) * 0.25;
-          e.vy -= 0.0009;
+          drift += (this.mouse.x - e.x / w) * 0.15;
         }
         e.x += drift;
         e.y += e.vy;
         const p = e.life / e.max;
-        const alpha = Math.sin(Math.min(p, 1) * Math.PI) * (0.55 + Math.sin(e.flick) * 0.25);
-        const radius = e.r * (1 + Math.sin(e.flick) * 0.2);
+        const alpha = Math.sin(Math.min(p, 1) * Math.PI) * (0.4 + Math.sin(e.flick) * 0.18);
+        const radius = e.r * (1 + Math.sin(e.flick) * 0.15);
         ctx.beginPath();
         ctx.fillStyle = e.color;
         ctx.globalAlpha = Math.max(0, alpha);
         ctx.shadowColor = e.color;
-        ctx.shadowBlur = 12;
+        ctx.shadowBlur = 10;
         ctx.arc(e.x, e.y, radius, 0, Math.PI * 2);
         ctx.fill();
-        if (e.y < -10 || e.life > e.max || e.x < -20 || e.x > w + 20) this.embers[i] = this.spawn();
+        if (e.y < -10 || e.life > e.max || e.x < -20 || e.x > w + 20) this.motes[i] = this.spawn();
       }
       ctx.globalAlpha = 1;
       ctx.shadowBlur = 0;
@@ -85,21 +84,21 @@
     start() { if (!this.raf) this.step(); }
     // A calm, static single frame for reduced-motion users.
     paintStatic() {
-      const { ctx, w, h } = this;
+      const { ctx } = this;
       ctx.globalCompositeOperation = 'lighter';
-      this.embers.forEach((e) => {
-        ctx.beginPath(); ctx.fillStyle = e.color; ctx.globalAlpha = 0.4;
-        ctx.shadowColor = e.color; ctx.shadowBlur = 10;
+      this.motes.forEach((e) => {
+        ctx.beginPath(); ctx.fillStyle = e.color; ctx.globalAlpha = 0.3;
+        ctx.shadowColor = e.color; ctx.shadowBlur = 8;
         ctx.arc(e.x, e.y, e.r, 0, Math.PI * 2); ctx.fill();
       });
       ctx.globalAlpha = 1; ctx.shadowBlur = 0;
     }
   }
 
-  const heroCanvas = document.getElementById('embers');
-  const scrCanvas = document.getElementById('embers2');
-  const heroField = heroCanvas && new EmberField(heroCanvas, { density: 1.2, reactive: true });
-  const scrField = scrCanvas && new EmberField(scrCanvas, { density: 0.7 });
+  const heroCanvas = document.getElementById('lightfield');
+  const scrCanvas = document.getElementById('lightfield2');
+  const heroField = heroCanvas && new LightField(heroCanvas, { density: 1, reactive: true });
+  const scrField = scrCanvas && new LightField(scrCanvas, { density: 0.6 });
   if (reduce) {
     heroField && heroField.paintStatic();
     scrField && scrField.paintStatic();
@@ -112,7 +111,6 @@
   const nav = document.getElementById('nav');
   const progress = document.getElementById('progress');
   const onScroll = () => {
-    nav.classList.toggle('scrolled', window.scrollY > 40);
     const max = document.documentElement.scrollHeight - window.innerHeight;
     progress.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + '%';
   };
@@ -128,10 +126,10 @@
 
   gsap.registerPlugin(ScrollTrigger);
 
-  // Ignite intro → hero
+  // Dawn intro → hero
   const intro = document.getElementById('intro');
   const tl = gsap.timeline();
-  tl.to('.intro-spark', { boxShadow: '0 0 60px 24px rgba(224,164,40,0.9)', scale: 3, duration: 0.7, ease: 'power2.out' })
+  tl.to('.intro-spark', { boxShadow: '0 0 50px 20px rgba(212,170,90,0.85)', scale: 3, duration: 0.7, ease: 'power2.out' })
     .to('#intro', { autoAlpha: 0, duration: 0.6, ease: 'power2.inOut', onComplete: () => intro && (intro.style.display = 'none') }, '+=0.15')
     // Hero headline: rise + fade, line by line
     .from('.hero-title .line', { yPercent: 115, opacity: 0, duration: 1, ease: 'power4.out', stagger: 0.12 }, '-=0.3')
@@ -146,9 +144,9 @@
     });
   });
 
-  // Pinned scripture: hold, drift the embers, gently scale the verse
+  // Pinned "Our Foundation": hold, let the light drift, gently scale the verse
   ScrollTrigger.create({
-    trigger: '#scripture',
+    trigger: '#foundation',
     start: 'top top',
     end: '+=120%',
     pin: true,
@@ -157,13 +155,13 @@
   gsap.fromTo('#verse',
     { scale: 0.94, opacity: 0.25 },
     { scale: 1, opacity: 1, ease: 'none',
-      scrollTrigger: { trigger: '#scripture', start: 'top 80%', end: 'top top', scrub: true } });
+      scrollTrigger: { trigger: '#foundation', start: 'top 80%', end: 'top top', scrub: true } });
   gsap.to('#verseTag', {
     letterSpacing: '0.6em', ease: 'none',
-    scrollTrigger: { trigger: '#scripture', start: 'top bottom', end: 'top top', scrub: true },
+    scrollTrigger: { trigger: '#foundation', start: 'top bottom', end: 'top top', scrub: true },
   });
 
-  // Subtle parallax on the two big gradient statements
+  // Subtle parallax on the hero title
   gsap.utils.toArray('.hero-title').forEach((el) => {
     gsap.to(el, { yPercent: -8, ease: 'none', scrollTrigger: { trigger: el, start: 'top top', end: 'bottom top', scrub: true } });
   });
